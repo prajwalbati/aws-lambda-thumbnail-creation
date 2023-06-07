@@ -12,7 +12,6 @@ dbtable = str(os.environ['DYNAMODB_TABLE'])
 dynamodb = boto3.resource('dynamodb', region_name=str(os.environ['REGION_NAME']))
 
 def s3_thumbnail_generator(event, context):
-    print("EVENT:::", event)
     bucket = event['Records'][0]['s3']['bucket']['name']
     key = event['Records'][0]['s3']['object']['key']
     img_size = event['Records'][0]['s3']['object']['size']
@@ -58,7 +57,6 @@ def upload_to_s3(bucket, key, image, img_size):
         ContentType='image/png',
         Key=key
     )
-    print(response)
 
     url = '{}/{}/{}'.format(s3.meta.endpoint_url, bucket, key)
 
